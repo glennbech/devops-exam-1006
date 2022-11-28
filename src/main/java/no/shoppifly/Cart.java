@@ -10,6 +10,10 @@ import java.util.List;
 @Builder
 public class Cart {
     private String id;
+
+    public List<Item> getItems() {
+        return items;
+    }
     List<Item> items = new ArrayList<>();
 }
 
@@ -18,6 +22,12 @@ class Item {
 
     private String description;
     private int qty;
+
+    public Float getUnitPrice() {
+        return unitPrice;
+    }
+
     private Float unitPrice;
+
 
 }
