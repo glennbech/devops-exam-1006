@@ -1,5 +1,6 @@
-/home/ec2-user/environment/devops-exam/src/main/java/no/shoppifly/ShoppingCartController.java
-/home/ec2-user/environment/devops-exam/src/main/java/no/shoppifly/NaiveCartImpl.java
-/home/ec2-user/environment/devops-exam/src/main/java/no/shoppifly/Cart.java
-/home/ec2-user/environment/devops-exam/src/main/java/no/shoppifly/CartService.java
-/home/ec2-user/environment/devops-exam/src/main/java/no/shoppifly/CddemoApplication.java
+/Users/saniyaibrahimova/Desktop/Devops Eksamen/devops_eksamen_2022/devops-exam/src/main/java/no/shoppifly/NaiveCartImpl.java
+/Users/saniyaibrahimova/Desktop/Devops Eksamen/devops_eksamen_2022/devops-exam/src/main/java/no/shoppifly/MetricsConfig.java
+/Users/saniyaibrahimova/Desktop/Devops Eksamen/devops_eksamen_2022/devops-exam/src/main/java/no/shoppifly/ShoppingCartController.java
+/Users/saniyaibrahimova/Desktop/Devops Eksamen/devops_eksamen_2022/devops-exam/src/main/java/no/shoppifly/Cart.java
+/Users/saniyaibrahimova/Desktop/Devops Eksamen/devops_eksamen_2022/devops-exam/src/main/java/no/shoppifly/CartService.java
+/Users/saniyaibrahimova/Desktop/Devops Eksamen/devops_eksamen_2022/devops-exam/src/main/java/no/shoppifly/CddemoApplication.java

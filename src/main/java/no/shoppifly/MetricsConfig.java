@@ -1,4 +1,4 @@
-package com.example.demo;
+package no.shoppifly;
 
 import io.micrometer.cloudwatch2.CloudWatchConfig;
 import io.micrometer.cloudwatch2.CloudWatchMeterRegistry;
