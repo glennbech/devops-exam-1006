@@ -8,7 +8,7 @@
         <version>2.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>no.glennbech.pgr301</groupId>
+    <groupId>no.sanibagh.pgr301</groupId>
     <artifactId>onlinestore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>onlinestore</name>
