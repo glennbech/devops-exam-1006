@@ -6,7 +6,7 @@ terraform {
     }
   }
 
-  backend "s3" {
+  backend "1006" {
     bucket = "pgr301-1006-terraform"
     key    = "pgr301-1006-terraform.state"
     region = "eu-west-1"
