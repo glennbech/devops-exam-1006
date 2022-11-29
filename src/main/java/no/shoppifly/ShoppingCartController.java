@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController()
+
+@Timed
+@RestController
 public class ShoppingCartController implements ApplicationListener<ApplicationReadyEvent> {
 
     @Autowired
@@ -90,7 +92,10 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
         Gauge.builder("cartsvalue" , cartService,
                 b -> b.total()).register(meterRegistry);
 
-        Timer.builder("checkout_latency").register(meterRegistry);
+        //Timer.builder("checkout_latency").register(meterRegistry);
+
+        Gauge.builder("checkout_latency" , theCart,
+                b -> b.values().size()).register(meterRegistry);
 
 
     }
