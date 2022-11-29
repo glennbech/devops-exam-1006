@@ -19,6 +19,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     private final CartService cartService;
 
     private Map<String, Cart> theCart = new HashMap();
+    private Map<String, Cart> theCartForUpdate = new HashMap();
     private MeterRegistry meterRegistry;
 
 
@@ -43,10 +44,11 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @Timed("checkout_latency")
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
-        meterRegistry.timer("checkout_latency").measure();
-        String result = cartService.checkout(cart);
-        theCart.remove(cart.getId());
-        return result;
+        meterRegistry.counter("remove_cart").increment();
+        String temp = cartService.checkout(cart);
+        theCart.put(cart.getId(), cart);
+        theCartForUpdate.remove(cart.getId());
+        return temp;
     }
 
     /**
@@ -59,7 +61,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @PostMapping(path = "/cart")
     public Cart updateCart(@RequestBody Cart cart) {
         meterRegistry.counter("update_cart").increment();
-        theCart.put(cart.getId(), cart);
+        theCartForUpdate.put(cart.getId(), cart);
         return cartService.update(cart);
     }
 
@@ -70,7 +72,6 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      */
     @GetMapping(path = "/carts")
     public List<String> getAllCarts() {
-        meterRegistry.counter("carts").increment();
         return cartService.getAllsCarts();
     }
 
@@ -78,7 +79,10 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
 
         // Denne meter-typen "Gauge" rapporterer hvor mye penger som totalt finnes i banken
-        Gauge.builder("carts" , theCart,
+        Gauge.builder("checkouts" , theCart,
+                b -> b.values().size()).register(meterRegistry);
+
+        Gauge.builder("carts" , theCartForUpdate,
                         b -> b.values().size()).register(meterRegistry);
 
         Gauge.builder("cartsvalue" , cartService,
