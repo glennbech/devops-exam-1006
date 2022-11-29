@@ -35,6 +35,7 @@ class NaiveCartImpl implements CartService {
     }
 
     // @author Jim; I'm so proud of this one, took me one week to figure out !!!
+    @Override
     public float total() {
         return shoppingCarts.values().stream()
                 .flatMap(c -> c.getItems().stream()
