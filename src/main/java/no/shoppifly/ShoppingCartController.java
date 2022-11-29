@@ -40,6 +40,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      *
      * @return an order ID
      */
+    @Timed
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
         meterRegistry.counter("delete_cart").increment();
@@ -67,8 +68,10 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      *
      * @return
      */
+    @Timed
     @GetMapping(path = "/carts")
     public List<String> getAllCarts() {
+        meterRegistry.counter("carts").increment();
         return cartService.getAllsCarts();
     }
 
@@ -78,6 +81,9 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
         // Denne meter-typen "Gauge" rapporterer hvor mye penger som totalt finnes i banken
         Gauge.builder("cart_count", theCart,
                         b -> b.values().size()).register(meterRegistry);
+
+        Gauge.builder("checkout_latency", theCart,
+                b -> b.values().size()).register(meterRegistry);
 
     }
 
