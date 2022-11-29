@@ -23,4 +23,5 @@ jobs:
           docker build . -t 1006-tag
           docker tag 1006-tag 244530008913.dkr.ecr.eu-west-1.amazonaws.com/1006:$rev
           docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/1006:$rev
+        
 
