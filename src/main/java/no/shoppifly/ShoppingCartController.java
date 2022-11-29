@@ -43,7 +43,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @Timed("checkout_latency")
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
-        meterRegistry.counter("delete_cart").increment();
+        meterRegistry.counter("delete_cart").measure();
         String result = cartService.checkout(cart);
         theCart.remove(cart.getId());
         return result;
