@@ -31,6 +31,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
 
     @GetMapping(path = "/cart/{id}")
     public Cart getCart(@PathVariable String id) {
+        meterRegistry.counter("carts").increment();
         return cartService.getCart(id);
     }
 
@@ -53,7 +54,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @Timed
     @PostMapping(path = "/cart")
     public Cart updateCart(@RequestBody Cart cart) {
-        meterRegistry.counter("create_cart").increment();
+        meterRegistry.counter("update_cart").increment();
         return cartService.update(cart);
     }
 
@@ -64,7 +65,12 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      */
     @GetMapping(path = "/carts")
     public List<String> getAllCarts() {
-        return cartService.getAllsCarts();
+        List <String> list =  cartService.getAllsCarts();
+        for (int i = 0; i < list.size(); i++) {
+            meterRegistry.counter("carts").increment();
+        }
+
+        return list;
     }
 
     @Override
@@ -73,6 +79,9 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
         // Denne meter-typen "Gauge" rapporterer hvor mye penger som totalt finnes i banken
         Gauge.builder("cart_count", theCart,
                         b -> b.values().size()).register(meterRegistry);
+
+        Gauge.builder("carts", theCart,
+                b -> b.values().size()).register(meterRegistry);
     }
 
 
