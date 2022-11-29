@@ -3,6 +3,8 @@ package no.shoppifly;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.TimeGauge;
+import io.micrometer.core.instrument.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -41,7 +43,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      *
      * @return an order ID
      */
-    @Timed("checkout_latency")
+    @Timed
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
         meterRegistry.counter("remove_cart").increment();
@@ -87,6 +89,8 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
 
         Gauge.builder("cartsvalue" , cartService,
                 b -> b.total()).register(meterRegistry);
+
+        Timer.builder("checkout_latency").register(meterRegistry);
 
 
     }
