@@ -42,7 +42,10 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      */
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
-        return cartService.checkout(cart);
+        meterRegistry.counter("delete_cart").increment();
+        String result = cartService.checkout(cart);
+        theCart.remove(cart.getId());
+        return result;
     }
 
     /**
@@ -55,6 +58,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @PostMapping(path = "/cart")
     public Cart updateCart(@RequestBody Cart cart) {
         meterRegistry.counter("update_cart").increment();
+        theCart.put(cart.getId(), cart);
         return cartService.update(cart);
     }
 
@@ -65,12 +69,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      */
     @GetMapping(path = "/carts")
     public List<String> getAllCarts() {
-        List <String> list =  cartService.getAllsCarts();
-        for (int i = 0; i < list.size(); i++) {
-            meterRegistry.counter("carts").increment();
-        }
-
-        return list;
+        return cartService.getAllsCarts();
     }
 
     @Override
@@ -80,8 +79,6 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
         Gauge.builder("cart_count", theCart,
                         b -> b.values().size()).register(meterRegistry);
 
-        Gauge.builder("carts", theCart,
-                b -> b.values().size()).register(meterRegistry);
     }
 
 
