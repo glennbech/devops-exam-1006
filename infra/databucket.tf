@@ -2,8 +2,4 @@
 
  resource "aws_s3_bucket" "analyticsbucket" {
    bucket = "analytics-${var.candidate_id}"
-
-   image_scanning_configuration {
-     scan_on_push = true
-   }
  }
