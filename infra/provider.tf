@@ -5,12 +5,12 @@ terraform {
       version = "4.40.0"
     }
   }
+
   backend "s3" {
-    bucket = "pgr301-analytics-1006-terraform"
-    key    = "terraform.state"
+    bucket = "analytics-1006"
+    key    = "1006/terraform.state"
     region = "eu-west-1"
   }
-
 }
 
 provider "aws" {
