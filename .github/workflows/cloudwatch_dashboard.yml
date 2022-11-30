@@ -4,6 +4,7 @@ defaults:
     working-directory: infra
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   terraform:
