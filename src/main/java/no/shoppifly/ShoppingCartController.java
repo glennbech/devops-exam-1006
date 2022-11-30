@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@Timed
 @RestController
 public class ShoppingCartController implements ApplicationListener<ApplicationReadyEvent> {
 
