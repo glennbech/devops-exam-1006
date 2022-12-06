@@ -75,7 +75,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           ]
         ],
         "period": 300,
-        "stat": "Maximum",
+        "stat": "Average",
         "region": "eu-west-1",
         "title": "Average response time for method checkout."
       }
