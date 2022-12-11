@@ -2,6 +2,35 @@
 
 ## Del 1:
 
+Beskriv med egne ord;
+
+### Hva er utfordringene med dagens systemutviklingsprosess - og hvordan vil innføring av DevOps kunne være med på å løse disse? Hvilke DevOps prinsipper blir brutt?
+* Separasjon av avdelinger
+* Utviklere er ikke en del av Ops/QA
+* QA forstår kanskje ikke kravene, bare at den mislykkes.
+* Manuell kontroll av alle QA-relaterte prosesser er treg og byråkratisk
+* DevOps kan bidra til bedre å integrere og kommunisere de nå forskjellige avdelingene
+* DevOps kan med automatisering bidra til å lette og fremskynde utgivelser og dekke nye testscenarier
+
+
+### En vanlig respons på mange feil under release av ny funksjonalitet er å gjøre det mindre hyppig, og samtidig forsøke å legge på mer kontroll og QA. Hva er problemet med dette ut ifra et DevOps perspektiv, og hva kan være en bedre tilnærming?
+* Hovedproblemet er at tilbakemeldingssløyfen fra kunder og for utviklere er tregere, slik at måneder kan brukes på noe som senere ikke blir brukt.
+* Ingen omtale av noen pipeline
+* Bruker ikke containers til “immutable releases”
+* Bruker ikke noen "connection" mellom kode og release
+* Mangel av noe test env
+
+
+### Teamet overleverer kode til en annen avdelng som har ansvar for drift - hva er utfordringen med dette ut ifra et DevOps perspektiv, og hvilke gevinster kan man få ved at team han ansvar for både drift- og utvikling?
+* Separation of concerns er et problem fordi hver avdeling ikke har konteksten for hvordan prosessen som helhet ser ut.
+* DevOps kan hjelpe slik at alle involverte har en generell forståelse av hva som skjer hvor og et felles grunnlag for hvordan prosessene, koden, release osv. fungerer og hvordan kan forbedres. 
+
+
+### Å release kode ofte kan også by på utfordringer. Beskriv hvilke- og hvordan vi kan bruke DevOps prinsipper til å redusere eller fjerne risiko ved hyppige leveraner.
+* Smaller releases -> less changes, easier to test
+* Often releases -> catch errors more often and fix them as they rise
+* Small incremental changes are easier to test and reason about
+
 
 
 ## Del 2:
