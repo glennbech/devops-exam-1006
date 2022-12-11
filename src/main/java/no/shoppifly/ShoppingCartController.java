@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.String.valueOf;
+import io.micrometer.core.instrument.MultiGauge;
+
 
 
 @RestController
@@ -36,7 +36,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
 
     @GetMapping(path = "/cart/{id}")
     public Cart getCart(@PathVariable String id) {
-        meterRegistry.counter("carts").increment();
+        //meterRegistry.counter("carts").increment();
         return cartService.getCart(id);
     }
 
@@ -45,11 +45,10 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      *
      * @return an order ID
      */
-    //@Timed("checkout_latency")
+    @Timed(value = "average_time")
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
         meterRegistry.counter("remove_cart").increment();
-        //meterRegistry.timer("avg_time");
         String temp = cartService.checkout(cart);
         theCart.put(cart.getId(), cart);
         theCartForUpdate.remove(cart.getId());
@@ -77,6 +76,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      */
     @GetMapping(path = "/carts")
     public List<String> getAllCarts() {
+        meterRegistry.counter("carts_count").increment();
         return cartService.getAllsCarts();
     }
 
@@ -95,18 +95,14 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
         Gauge.builder("cartsvalue" , cartService,
                 b -> b.total()).register(meterRegistry);
 
-        AtomicInteger msTimeGauge = new AtomicInteger(4000);
+        Timer timer = meterRegistry.find("average_time").timer();
 
-        TimeGauge.builder("checkout_latency", msTimeGauge, TimeUnit.MILLISECONDS, o -> 1).register(meterRegistry);
+        Gauge.builder("checkout_latency", timer,
+                t -> t.totalTime(TimeUnit.MILLISECONDS) / t.count()).register(meterRegistry);
 
 
-        /*
-        MultiGauge.builder("checkout_latency")
-                .tag("checkout_latency", "avg_time")
-                .baseUnit("Milliseconds")
-                .register(meterRegistry);
 
-         */
+
 
 
 
