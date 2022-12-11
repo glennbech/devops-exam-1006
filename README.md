@@ -1,3 +1,9 @@
+*[![CI pipeline](https://github.com/sani-bagh/devops-exam/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sani-bagh/devops-exam/actions/workflows/ci.yml)
+
+* [![Docker build](https://github.com/sani-bagh/devops-exam/actions/workflows/docker.yml/badge.svg?branch=main)](https://github.com/sani-bagh/devops-exam/actions/workflows/docker.yml)
+
+*[![Terraform CloudWatch](https://github.com/sani-bagh/devops-exam/actions/workflows/cloudwatch_dashboard.yml/badge.svg?branch=main)](https://github.com/sani-bagh/devops-exam/actions/workflows/cloudwatch_dashboard.yml)
+
 ## Bevarelse av kandidat 	1006
 
 ## Del 1:
